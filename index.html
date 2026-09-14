@@ -360,8 +360,28 @@
     }
     .fig-wide img { max-height: 520px; }
     .fig-screen img { max-height: 420px; }
-    .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .feat-grid .fig img { max-height: 196px; }
+    .feat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    .feat-grid .fig img { max-height: 168px; }
+    .feat-grid .kiosk-card { grid-column: 1 / -1; }
+    .kiosk-shots {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 8px;
+    }
+    .kiosk-shots > div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 0;
+    }
+    .feat-grid .kiosk-card img { max-height: 176px; }
+    .shot-lbl {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
     .id-rows { display: grid; gap: 10px; }
     .id-rows .card {
       display: grid;
@@ -728,8 +748,21 @@
       <section class="slide">
         <h2><span>09</span>Major System Features</h2>
         <div class="feat-grid">
-          <figure class="fig rise">
-            <img src="figures/kiosk-service.png" alt="Kiosk service selection" />
+          <figure class="fig rise kiosk-card">
+            <div class="kiosk-shots">
+              <div>
+                <img src="figures/kiosk-service.png" alt="Kiosk step 1 — select service (Cashier, DMO, Registrar)" />
+                <span class="shot-lbl">1 · Service</span>
+              </div>
+              <div>
+                <img src="figures/kiosk-priority.png" alt="Kiosk step 2 — Regular or Priority" />
+                <span class="shot-lbl">2 · Priority</span>
+              </div>
+              <div>
+                <img src="figures/kiosk-confirm.png" alt="Kiosk step 3 — confirm with Student ID keypad" />
+                <span class="shot-lbl">3 · Confirm</span>
+              </div>
+            </div>
             <figcaption class="fig-name">Kiosk — 3 steps; Student ID on confirm; walk-in PIN path</figcaption>
           </figure>
           <figure class="fig rise">
@@ -926,7 +959,7 @@
     const lightboxCap = lightbox.querySelector(".lightbox-cap");
 
     function openLightbox(img) {
-      const cap = img.closest("figure")?.querySelector(".fig-name")?.textContent || img.alt;
+      const cap = img.alt || img.closest("figure")?.querySelector(".fig-name")?.textContent;
       lightboxImg.src = img.currentSrc || img.src;
       lightboxImg.alt = img.alt;
       lightboxCap.textContent = cap;
